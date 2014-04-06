@@ -8,7 +8,7 @@ namespace hw1
 {
     class Program
     {
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             int i;
             double_dutor dd = new double_dutor(1.1);
@@ -58,6 +58,6 @@ namespace hw1
             Console.WriteLine();
 
             Console.ReadKey();
-        } // main
+        } // main*/
     } // rundutor
 }
