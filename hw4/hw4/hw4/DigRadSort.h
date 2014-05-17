@@ -11,6 +11,7 @@ namespace hw4
 	public:
 		DigRadSort(unsigned long int arr[], int n, int digit_no, int radix);
 		DigRadSort(const DigRadSort& r);
+		DigRadSort(const DigRadSort&& r);
 		~DigRadSort();
 
 		int getRadix() const;
@@ -18,6 +19,7 @@ namespace hw4
 		unsigned long int getij(int i, int j) const;
 
 		DigRadSort& operator= (const DigRadSort& r);
+		DigRadSort& operator= (const DigRadSort&& r);
 
 	private:
 		std::vector<unsigned long int>* radixSlots; 

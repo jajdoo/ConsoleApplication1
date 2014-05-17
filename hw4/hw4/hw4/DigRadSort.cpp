@@ -8,12 +8,11 @@
 using namespace hw4;
 
 DigRadSort::DigRadSort(unsigned long int arr[], int n, int digit_no, int radix) :
-radix(radix)
+radix(radix),
+radixSlots(new std::vector<unsigned long int>[radix])
 {
 	using namespace std;
-
-	radixSlots = new vector<unsigned long int>[radix];
-
+	
 	for (int i=0 ; i<n ; i++)
 	{
 		int digit = (arr[i] / (unsigned long int)pow(radix, digit_no - 1)) % radix;
@@ -34,6 +33,13 @@ DigRadSort::DigRadSort(const DigRadSort& r)
 	}
 }
 
+DigRadSort::DigRadSort(const DigRadSort&& r)
+{
+	radix = r.radix;
+	radixSlots = std::move(r.radixSlots);
+}
+
+
 DigRadSort& DigRadSort::operator= (const DigRadSort& r)
 {
 	using namespace std;
@@ -53,6 +59,24 @@ DigRadSort& DigRadSort::operator= (const DigRadSort& r)
 
 	return *this;
 }
+
+
+DigRadSort& DigRadSort::operator= (const DigRadSort&& r)
+{
+	using namespace std;
+
+	if (this == &r) return *this;
+
+	if (radixSlots != nullptr)
+		delete[] radixSlots;
+
+	radix = r.radix;
+	radixSlots = r.radixSlots;
+
+	return *this;
+}
+
+
 
 DigRadSort::~DigRadSort()
 {
@@ -77,14 +101,13 @@ int DigRadSort::getRadix() const
 
 
 
-std::ostream& operator<< (std::ostream& stream, DigRadSort& r)
+std::ostream& hw4::operator<< (std::ostream& stream, DigRadSort& r)
 {
-	int i, j;
-	for (i = 0; i < r.getRadix(); i++)
+	for (int i = 0; i < r.getRadix(); i++)
 	{
-		stream << "digit : " << i << ":";
-		for (j = 0; j < r.getiSize(i); j++)
-			stream << r.getij(i, j);
+		stream << "digit " << i << " : ";
+		for (int j = 0; j < r.getiSize(i); j++)
+			stream << r.getij(i, j) << " " ;
 
 		stream << std::endl;
 	}

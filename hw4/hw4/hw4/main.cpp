@@ -24,6 +24,10 @@ int main()
 	DigRadSort drs1(arr1, 17, 5, 10);
 	DigRadSort drs2(arr2, 20, 3, 16);
 
+
+	DigRadSort drs3 = DigRadSort(arr2, 20, 3, 16);
+	drs3 = move(drs2);
+
 	cout << "drs1 = " << endl;
 	print(drs1);
 
